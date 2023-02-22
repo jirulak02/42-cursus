@@ -6,7 +6,7 @@
 /*   By: jsimecek <jsimecek@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 14:21:42 by jsimecek          #+#    #+#             */
-/*   Updated: 2023/01/18 16:02:09 by jsimecek         ###   ########.fr       */
+/*   Updated: 2023/02/22 11:48:08 by jsimecek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	ft_int_len(int n)
 	int	len;
 
 	len = 0;
-	if (n == 0)
-		return (1);
-	while (n > 0)
+	if (n <= 0)
+		len = 1;
+	while (n != 0)
 	{
 		n = n / 10;
 		len++;
@@ -27,62 +27,36 @@ int	ft_int_len(int n)
 	return (len);
 }
 
-char	*ft_check_min(int n)
+char	*ft_convert(char *str, unsigned int num, long int len)
 {
-	char	*str;
-
-	if (n == -2147483648)
+	while (num != 0)
 	{
-		str = malloc(12 * sizeof(char));
-		if (!str)
-			return (NULL);
-		str = "-2147483648";
-		return (str);
-	}
-	return (NULL);
-}
-
-char	*ft_convert(char *str, int n, int sign, int len)
-{
-	if (sign == -1)
-		len++;
-	str[len] = '\0';
-	len--;
-	while (len >= 0)
-	{
-		if (sign == -1 && len == 0)
-			str[0] = '-';
-		else
-		{
-			str[len] = n % 10 + 48;
-			n = n / 10;
-		}
-		len--;
+		str[len--] = (num % 10) + 48;
+		num = num / 10;
 	}
 	return (str);
 }
 
 char	*ft_itoa(int n)
 {
-	int		i;
-	int		sign;
-	char	*str;
+	char			*str;
+	long int		len;
+	unsigned int	num;
 
-	i = 0;
-	sign = 1;
-	str = ft_check_min(n);
-	if (str != NULL)
-		return (str);
-	if (n < 0)
-	{
-		n = n * -1;
-		str = malloc((ft_int_len(n) + 2) * sizeof(char));
-		sign = -1;
-	}
-	else
-		str = malloc((ft_int_len(n) + 1) * sizeof(char));
+	len = ft_int_len(n);
+	str = (char *)malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
-	str = ft_convert(str, n, sign, ft_int_len(n));
+	str[len--] = '\0';
+	if (n == 0)
+		str[0] = '0';
+	if (n < 0)
+	{
+		num = n * -1;
+		str[0] = '-';
+	}
+	else
+		num = n;
+	str = ft_convert(str, num, len);
 	return (str);
 }

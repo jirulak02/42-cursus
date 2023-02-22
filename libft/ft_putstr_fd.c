@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsimecek <jsimecek@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 12:18:47 by jsimecek          #+#    #+#             */
-/*   Updated: 2023/01/17 11:09:46 by jsimecek         ###   ########.fr       */
+/*   Created: 2023/02/22 11:16:04 by jsimecek          #+#    #+#             */
+/*   Updated: 2023/02/22 11:31:20 by jsimecek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "../libft.h"
+#include "libft.h"
 
-int	main(void)
+void	ft_putstr_fd(char *s, int fd)
 {
-	printf("%d\n", ft_atoi("-452"));
-	printf("%d\n", ft_atoi("\t\n\r\v\f  469 \n"));
-	printf("%d\n", ft_atoi("  -+-54v54"));
-	printf("%d\n", ft_atoi("  -+ -54v54"));
-	return (0);
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		ft_putchar_fd(s[i], fd);
+		i++;
+	}
 }
