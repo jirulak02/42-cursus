@@ -6,7 +6,7 @@
 #    By: jsimecek <jsimecek@student.42prague.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 11:44:41 by jsimecek          #+#    #+#              #
-#    Updated: 2023/01/18 12:24:02 by jsimecek         ###   ########.fr        #
+#    Updated: 2023/02/23 11:15:39 by jsimecek         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ $(NAME): $(OBJS)
 so:
 	cc -nostartfiles -fPIC $(CFLAGS) $(SRCS)
 	gcc -nostartfiles -shared -o libft.so $(OBJS)
+
+bonus:
 
 clean:
 	rm -f $(OBJS)
