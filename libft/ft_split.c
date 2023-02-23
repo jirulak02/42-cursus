@@ -6,79 +6,91 @@
 /*   By: jsimecek <jsimecek@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 14:19:27 by jsimecek          #+#    #+#             */
-/*   Updated: 2023/02/22 11:25:13 by jsimecek         ###   ########.fr       */
+/*   Updated: 2023/02/23 09:52:58 by jsimecek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*
-static size_t	count_words(char const *s, char c)
+static char	**ft_free_malloc(char **final_s, int j)
 {
-	int		count;
-	int		is_word;
+	while (j-- > 0)
+		free(final_s[j]);
+	free(final_s);
+	return (0);
+}
 
-	is_word = 0;
+static int	ft_count_w(char const *s, char c)
+{
+	int	i;
+	int	count;
+
+	i = 0;
 	count = 0;
-	while (*s)
+	while (s[i])
 	{
-		if (*s == c)
-			is_word = 0;
-		else if (is_word == 0)
+		if (s[i] == c)
+			i++;
+		else
 		{
-			is_word = 1;
+			while (s[i] && s[i] != c)
+				i++;
 			count++;
 		}
-		s++;
 	}
 	return (count);
 }
 
-static size_t	w_s(char const *s, int pos, char c)
+static char	*ft_put_w(char *w, char const *s, int i, int w_len)
 {
-	size_t	len;
+	int	j;
 
-	len = 0;
-	while (s[pos])
+	j = 0;
+	while (w_len > 0)
+		w[j++] = s[i - w_len--];
+	w[j] = '\0';
+	return (w);
+}
+
+static char	**ft_split_w(char const *s, char c, char **final_s, int w_count)
+{
+	int	i;
+	int	j;
+	int	w_len;
+
+	i = 0;
+	j = 0;
+	while (j < w_count)
 	{
-		if (s[pos] == c)
-			return (len);
-		len++;
-		pos++;
+		w_len = 0;
+		while (s[i] && s[i] == c)
+			i++;
+		while (s[i] && s[i] != c)
+		{
+			i++;
+			w_len++;
+		}
+		final_s[j] = (char *)malloc(sizeof(char) * (w_len + 1));
+		if (!final_s)
+			return (ft_free_malloc(final_s, j));
+		ft_put_w(final_s[j], s, i, w_len);
+		j++;
 	}
-	return (len);
+	final_s[j] = 0;
+	return (final_s);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**tab;
-	int		i;
-	int		j;
-	int		k;
+	char	**final_s;
+	int		w_count;
 
-	i = -1;
-	j = 0;
-	k = 0;
-	tab = malloc(sizeof(char *) * (count_words(s, c) + 1));
-	if (!tab)
+	if (!s)
 		return (NULL);
-	while (s[++i])
-	{
-		if (s[i] != c)
-		{
-			if (k == 0)
-			{
-				tab[j] = (char *)malloc(sizeof(char) * w_s(s, i, c) + 1);
-				if (!tab)
-					return (NULL);
-			}
-			tab[j][k] = s[i];
-			tab[j][++k] = '\0';
-		}
-		if ((s[i] == c && s[i + 1] != c && k > 0))
-			j++;
-	}
-	tab[count_words(s, c)] = NULL;
-	return (tab);
+	w_count = ft_count_w(s, c);
+	final_s = (char **)malloc(sizeof(char *) * (w_count + 1));
+	if (!final_s)
+		return (NULL);
+	final_s = ft_split_w(s, c, final_s, w_count);
+	return (final_s);
 }
-*/
