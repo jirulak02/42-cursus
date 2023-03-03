@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_in_str.c                                     :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsimecek <jsimecek@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 14:21:38 by jsimecek          #+#    #+#             */
-/*   Updated: 2023/01/17 11:33:27 by jsimecek         ###   ########.fr       */
+/*   Created: 2023/03/03 10:01:39 by jsimecek          #+#    #+#             */
+/*   Updated: 2023/03/03 10:01:52 by jsimecek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_is_in_str(char *s1, char c)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int		i;
-
-	i = 0;
-	while (s1[i])
-	{
-		if (s1[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
+	if (!lst || !new)
+		return ;
+	if (*lst)
+		ft_lstlast(*lst)->next = new;
+	else
+		*lst = new;
+	return ;
 }
