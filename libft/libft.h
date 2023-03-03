@@ -6,7 +6,7 @@
 /*   By: jsimecek <jsimecek@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 10:56:50 by jsimecek          #+#    #+#             */
-/*   Updated: 2023/02/23 11:18:31 by jsimecek         ###   ########.fr       */
+/*   Updated: 2023/03/03 12:15:29 by jsimecek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,5 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-
-// Other functions
-
-int		ft_is_in_str(char *s1, char c);
 
 #endif
