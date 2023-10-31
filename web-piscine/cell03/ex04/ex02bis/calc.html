@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <form>
+      <input type="text" name="first" />
+      <select name="operator">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+        <option value="%">%</option>
+      </select>
+      <input type="text" name="second" />
+      <button type="submit">Try me!</button>
+    </form>
+
+    <script>
+      $(document).ready(() => {
+        setInterval(() => {
+          alert("Please, use me...");
+        }, 30000);
+
+        $("form").on("submit", (e) => {
+          e.preventDefault();
+
+          const firstValue = Number($("input[name=first]")[0].value);
+          const secondValue = Number($("input[name=second]")[0].value);
+          const operatorValue = $("select")[0].value;
+
+          if (
+            !(Number.isInteger(firstValue) && firstValue >= 0) ||
+            !(Number.isInteger(secondValue) && secondValue >= 0)
+          ) {
+            alert("Error :(");
+            return;
+          }
+
+          if (
+            (operatorValue === "/" || operatorValue === "%") &&
+            secondValue === 0
+          ) {
+            console.log("It's over 9000!");
+            alert("It's over 9000!");
+            return;
+          }
+
+          if (operatorValue === "+") {
+            result(firstValue + secondValue);
+          } else if (operatorValue === "-") {
+            result(firstValue - secondValue);
+          } else if (operatorValue === "*") {
+            result(firstValue * secondValue);
+          } else if (operatorValue === "/") {
+            result(firstValue / secondValue);
+          } else if (operatorValue === "%") {
+            result(firstValue % secondValue);
+          }
+        });
+
+        function result(result) {
+          console.log(result);
+          alert(result);
+        }
+      });
+    </script>
+  </body>
+</html>

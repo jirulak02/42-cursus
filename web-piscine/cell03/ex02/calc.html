@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <input type="text" name="first" />
+      <select name="operator">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+        <option value="%">%</option>
+      </select>
+      <input type="text" name="second" />
+      <button type="submit">Try me!</button>
+    </form>
+
+    <script>
+      const form = document.querySelector("form");
+      const first = document.querySelector("input[name=first]");
+      const second = document.querySelector("input[name=second]");
+      const operator = document.querySelector("select[name=operator]");
+
+      setInterval(function () {
+        alert("Please, use me...");
+      }, 30000);
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const firstValue = Number(first.value);
+        const secondValue = Number(second.value);
+        const operatorValue = operator.value;
+
+        if (
+          !(Number.isInteger(firstValue) && firstValue >= 0) ||
+          !(Number.isInteger(secondValue) && secondValue >= 0)
+        ) {
+          alert("Error :(");
+          return;
+        }
+
+        if (
+          (operatorValue === "/" || operatorValue === "%") &&
+          secondValue === 0
+        ) {
+          console.log("It's over 9000!");
+          alert("It's over 9000!");
+          return;
+        }
+
+        if (operatorValue === "+") {
+          result(firstValue + secondValue);
+        } else if (operatorValue === "-") {
+          result(firstValue - secondValue);
+        } else if (operatorValue === "*") {
+          result(firstValue * secondValue);
+        } else if (operatorValue === "/") {
+          result(firstValue / secondValue);
+        } else if (operatorValue === "%") {
+          result(firstValue % secondValue);
+        }
+      });
+
+      function result(result) {
+        console.log(result);
+        alert(result);
+      }
+    </script>
+  </body>
+</html>
